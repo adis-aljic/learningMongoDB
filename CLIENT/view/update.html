@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../STYLE/index.css">
+    <title>Update user page</title>
+ 
+</head>
+<body>
+    
+        <a href="/search">Find user</a>
+        <a href="/delete">Delete user</a>
+        <a href="/">Register user</a>
+        <br>
+                <h1>Update user</h1>
+    
+
+        <form action="/api/updateUser" method="post">
+            <label for="username">Username</label>
+            <input type="text" name="username" required>
+            <hr>
+            <p>Fill up information for updating</p>
+            <label for="first_name">First Name</label>
+            <input type="text" name="first_name">
+            <label for="last_name">Last Name</label>
+        <input type="text" name="last_name">
+        <label for="email">Email</label>
+        <input type="email" name="email">
+     
+        <label for="password">Password</label>
+        <input type="text" name="password">
+        <button type="submit" id="sign_up">Update user</button>
+    </form>
+    <div >
+        <ul id="new_user">
+
+        </ul>
+    </div>
+    <script src="../JS/index.js"></script>
+</body>
+</html>

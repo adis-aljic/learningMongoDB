@@ -1,0 +1,17 @@
+const express = require('express');
+const { urlencoded } = require('express');
+
+const user = require('./router/user_router');
+const app = express();
+app.use(express.json());
+app.use(express.static(`${__dirname}/CLIENT`));
+app.use(
+  urlencoded({
+    extended: false,
+  })
+);
+
+const PORT = 3000;
+app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
+
+app.use('/', user);

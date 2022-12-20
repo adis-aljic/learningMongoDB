@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../STYLE/index.css">
+    <title>Login page</title>
+</head>
+<body>
+    <a href="/">Register user</a>
+    <a href="/delete">Delete user</a>
+    <a href="/update">Update user</a>
+    <br>             
+       <h1>Search user</h1>
+
+        <form action="/api/findUser" method="post">
+        
+        <label for="user_username">Username</label>
+        <input type="text" name="user_username" id="user_username">
+        <button type="submit" id="list_one_user">Find one user</button>
+        
+    </form>
+    <form action="/api/findAll" method="post">
+        <input type="text" name="find_all" value="true" id="" hidden>
+        <button type="submit"  id="list_all_users">Find all users</button>
+        
+    </form>
+        <div id="users">
+            
+        </div>
+
+</body>
+</html>

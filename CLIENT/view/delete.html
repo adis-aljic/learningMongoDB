@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../STYLE/index.css">
+    <title>Delete user page</title>
+</head>
+<body>
+    <a href="/search">Find user</a>
+    <a href="/">Register user</a>
+    <a href="/update">Update user</a>
+    <br>
+    <h1>Delete user</h1>
+
+        <br>
+        <form action="/api/deleteUser" method="post">
+
+        <label for="username">Username</label>
+        <input type="text" name="username" id="user_username">
+        <button type="submit" >Delete user</button>
+    </form>
+        
+
+</body>
+</html>
