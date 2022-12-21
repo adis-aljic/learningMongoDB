@@ -33,26 +33,14 @@ const userSchema = new Schema({
     required: [true, 'You must enter username'],
     trim: true,
     lowercase: true,
-    // match: '/^[^s@]+@[^s@]+.[^s@]+$/gm',
     index: true,
     unique: true,
   },
   password: {
     type: String,
     minLenght: [8, 'You must enter password with minumum of 8 charachters'],
-    // validate: [
-    //   isStrongPassword,
-    //   'Password must contain minimum one small letter, one capital letter, one number and one symbol',
-    // ],
-    validate: {
-      validator: function (v) {
-        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$/.test(
-          v
-        );
-      },
-      message:
-        'Password must contain minimum one small letter, one capital letter, one number and one symbol',
-    },
+    // validate: /^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]$/,
+    // 'Password must contain minimum one small letter, one capital letter, one number and one symbol',
   },
 });
 userSchema.plugin(uniqueValidator);

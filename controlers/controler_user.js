@@ -14,7 +14,7 @@ const addUser = async (req, res) => {
       new_user.password = password;
       const user = new userSchema(new_user);
       await user.save();
-      res.json(new_user);
+      res.redirect('/');
     } else {
       res.send({ message: 'User exist' });
     }
