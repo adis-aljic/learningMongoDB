@@ -26,16 +26,15 @@ router.get('/update', (req, res) => {
 });
 
 router.post('/api/findUser', (req, res) => {
-  // console.log(req.body.user_username);
-  findOne(req.body.user_username).then((data) => {
-    res.send(data);
+  console.log(req.body.username);
+  findOne(req.body.username).then((data) => {
+    console.log(data);
+    res.json(data);
   });
 });
 router.post('/api/findAll', (req, res) => {
-  console.log(req.body);
   findAll().then((data) => {
-    console.log(data);
-    res.send(data);
+    res.json(data);
   });
 });
 

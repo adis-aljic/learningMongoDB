@@ -68,7 +68,9 @@ const findAll = async () => {
 };
 const findOne = async (data) => {
   const findOne = await user.findOne({ username: `${data}` });
-  return findOne || `There is no username ${data} in database`;
+  if (findOne) {
+    return findOne;
+  }
 };
 
 const deleteOne = async (data, res) => {

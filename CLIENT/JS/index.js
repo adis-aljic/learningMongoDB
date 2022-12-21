@@ -4,6 +4,23 @@ const input_username = document.getElementById('username');
 console.log('Aaaaaaaaa');
 button.addEventListener('click', () => {
   console.log('bbb');
+  fetch('http://localhost:3000/api/registerUser', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      first_name: document.getElementById('first_name').value,
+      last_name: document.getElementById('last_name').value,
+      username: document.getElementById('username').value,
+      email: document.getElementById('email').value,
+      password: document.getElementById('password').value,
+    }),
+  })
+    .then((data) => data.json())
+    .then((data) => {
+      console.log(data);
+    });
 
   fetch('http://localhost:3000/api/registerUser', {
     method: 'GET',
