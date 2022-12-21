@@ -5,12 +5,9 @@ console.log('Aaaaaaaaa');
 button.addEventListener('click', () => {
   console.log('bbb');
 
-  fetch('http://localhost:3000/api/findUser', {
-    method: 'POST',
+  fetch('http://localhost:3000/api/registerUser', {
+    method: 'GET',
     mode: 'cors',
-    body: {
-      username: `${input_username}`,
-    },
   })
     .then((res) => res.json())
     .then((data) => {
