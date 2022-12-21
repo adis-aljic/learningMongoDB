@@ -4,17 +4,54 @@ const bcrypt = require('bcrypt');
 const user = require('../model/user');
 const connection = require('../mongoDB');
 
+const validatePassword = (password) => {
+  const pwd = password.split('');
+  const length = password.length;
+
+  let letters = 'qwertyuioplkjhgfdsazxcvbnm';
+  let small_letter_collection = letters.split('');
+  let capital_letter_collection = letters.toUpperCase().split('');
+  let numbers_collection = '0123456789'.split('');
+  let special_characters_collection = '!@#$%^&*()_?></=+='.split('');
+
+  const small_letter = pwd.filter((element) =>
+    small_letter_collection.includes(element)
+  );
+
+  const capital_letter = pwd.filter((element) =>
+    capital_letter_collection.includes(element)
+  );
+
+  const special_characters = pwd.filter((element) =>
+    special_characters_collection.includes(element)
+  );
+
+  const numbers = pwd.filter((element) => numbers_collection.includes(element));
+
+  if (
+    length >= 8 &&
+    capital_letter &&
+    small_letter &&
+    numbers &&
+    special_characters
+  )
+    return true;
+  else return false;
+};
+
 const addUser = async (req, res) => {
   try {
+    console.log(req.body.username);
     const duplicatedUser = await user.findOne({ username: req.body.username });
 
     if (!duplicatedUser) {
       const new_user = req.body;
-      let password = await bcrypt.hash(req.body.password, 10);
+      let pwd = req.body.password;
+      let password = await bcrypt.hash(pwd, 10);
       new_user.password = password;
       const user = new userSchema(new_user);
       await user.save();
-      res.redirect('/');
+      res.json(new_user);
     } else {
       res.send({ message: 'User exist' });
     }
@@ -79,4 +116,5 @@ module.exports = {
   findOne,
   deleteOne,
   updateUser,
+  validatePassword,
 };

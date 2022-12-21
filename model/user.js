@@ -36,12 +36,7 @@ const userSchema = new Schema({
     index: true,
     unique: true,
   },
-  password: {
-    type: String,
-    minLenght: [8, 'You must enter password with minumum of 8 charachters'],
-    // validate: /^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]$/,
-    // 'Password must contain minimum one small letter, one capital letter, one number and one symbol',
-  },
+  password: String,
 });
 userSchema.plugin(uniqueValidator);
 

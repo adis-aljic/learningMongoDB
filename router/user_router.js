@@ -7,6 +7,7 @@ const {
   addUser,
   deleteOne,
   updateUser,
+  validatePassword,
 } = require('../controlers/controler_user');
 
 router.get('/', (req, res) => {
@@ -39,7 +40,14 @@ router.post('/api/findAll', (req, res) => {
 });
 
 router.post('/api/registerUser', (req, res) => {
-  addUser(req, res);
+  console.log(validatePassword(req.body.password));
+  if (validatePassword(req.body.password)) {
+    addUser(req, res);
+  } else
+    res.json({
+      message:
+        'Password is not safe. Please use at least 8 characters, at least one small, one capital letter, one special character and one number',
+    });
 });
 
 router.post('/api/deleteUser', (req, res) => {
