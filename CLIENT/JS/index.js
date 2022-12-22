@@ -17,15 +17,6 @@ button.addEventListener('click', () => {
       password: document.getElementById('password').value,
     }),
   })
-    .then((data) => data.json())
-    .then((data) => {
-      console.log(data);
-    });
-
-  fetch('http://localhost:3000/api/registerUser', {
-    method: 'GET',
-    mode: 'cors',
-  })
     .then((res) => res.json())
     .then((data) => {
       console.log('Aaa');
