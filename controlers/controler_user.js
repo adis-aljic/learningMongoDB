@@ -30,13 +30,18 @@ const validatePassword = (password) => {
 
   if (
     length >= 8 &&
-    capital_letter &&
-    small_letter &&
-    numbers &&
-    special_characters
-  )
+    capital_letter.length > 0 &&
+    small_letter.length > 0 &&
+    numbers.length > 0 &&
+    special_characters.length > 0
+  ) {
+    // console.log(capital_letter);
+    console.log('numbers');
     return true;
-  else return false;
+  } else {
+    console.log(capital_letter);
+    return false;
+  }
 };
 
 const addUser = async (req, res) => {
@@ -56,7 +61,7 @@ const addUser = async (req, res) => {
       res.send({ message: 'User exist' });
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     res.status(500).send({ message: error.message });
   }
 };

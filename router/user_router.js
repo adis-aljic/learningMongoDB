@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 const path = require('path');
 const {
   findAll,
@@ -10,23 +11,23 @@ const {
   validatePassword,
 } = require('../controlers/controler_user');
 
-router.get('/', (req, res) => {
-  res.sendFile(path.join(process.cwd(), '/CLIENT/view/index.html'));
-});
+// router.get('/', (req, res) => {
+//   res.sendFile(path.join(process.cwd(), '/CLIENT/view/index.html'));
+// });
 
-router.get('/search', (req, res) => {
-  res.sendFile(path.join(process.cwd(), '/CLIENT/view/search.html'));
-});
+// router.get('/search', (req, res) => {
+//   res.sendFile(path.join(process.cwd(), '/CLIENT/view/search.html'));
+// });
 
-router.get('/delete', (req, res) => {
-  res.sendFile(path.join(process.cwd(), '/CLIENT/view/delete.html'));
-});
-router.get('/update', (req, res) => {
-  res.sendFile(path.join(process.cwd(), '/CLIENT/view/update.html'));
-});
+// router.get('/delete', (req, res) => {
+//   res.sendFile(path.join(process.cwd(), '/CLIENT/view/delete.html'));
+// });
+// router.get('/update', (req, res) => {
+//   res.sendFile(path.join(process.cwd(), '/CLIENT/view/update.html'));
+// });
 
 router.post('/api/findUser', (req, res) => {
-  console.log(req.body.username);
+  console.log(req.body);
   findOne(req.body.username).then((data) => {
     console.log(data);
     res.json(data);
@@ -59,3 +60,16 @@ router.post('/api/updateUser', (req, res) => {
   updateUser(res, req.body);
 });
 module.exports = router;
+
+router.post('/api/loginUser', (req, res) => {
+  findOne(req.body.username).then((data) => {
+    bcrypt.compare(req.body.password, data.password, function (err, result) {
+      if (err) throw err.message;
+      else if (result) {
+        res.json({ message: 'correct password' });
+      } else {
+        res.json({ message: 'wrong password' });
+      }
+    });
+  });
+});
