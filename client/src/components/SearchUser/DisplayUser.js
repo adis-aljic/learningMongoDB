@@ -1,7 +1,8 @@
 const DisplayUser = (props) => {
   return (
     <>
-      <p>{props.first_name}</p>
+      <div>first name : {props.user.first_name}</div>
+      <div>{props.user.username}</div>
     </>
   );
 };

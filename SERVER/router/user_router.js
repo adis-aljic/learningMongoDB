@@ -34,6 +34,7 @@ router.post('/api/findUser', (req, res) => {
     res.send(data);
   });
 });
+
 router.post('/api/findAll', (req, res) => {
   findAll().then((data) => {
     res.json(data);

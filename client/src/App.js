@@ -1,17 +1,18 @@
 import FindUserForm from './components/SearchUser/SearchUser';
-import DisplayUser from './components/SearchUser/DisplayUser';
-function App() {
-  const onFoundUserHandler = (foundUser) => {
-    const foundUserData = { ...foundUser };
-    console.log(foundUserData);
-    return foundUserData;
-  };
 
+import DisplayUser from './components/SearchUser/DisplayUser';
+import { useState } from 'react';
+function App() {
+  const [user, setUser] = useState();
+  const onFoundUserHandler = (foundUser) => {
+    setUser(foundUser);
+  };
+  console.log(user);
   return (
     <>
       <h1>Find user</h1>
-      <FindUserForm />
-      <DisplayUser onFoundUser={onFoundUserHandler}></DisplayUser>
+      <FindUserForm onFoundUser={onFoundUserHandler} />
+      {user && <DisplayUser user={user}></DisplayUser>}
     </>
   );
 }

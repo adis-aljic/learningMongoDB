@@ -21,7 +21,7 @@ const FindUserForm = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        props.onFoundUserHandler(data);
+        props.onFoundUser(data);
       });
     setUsername('');
   };
