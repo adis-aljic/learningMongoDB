@@ -27,10 +27,11 @@ const {
 // });
 
 router.post('/api/findUser', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   findOne(req.body.username).then((data) => {
     console.log(data);
-    res.json(data);
+    console.log('data');
+    res.send(data);
   });
 });
 router.post('/api/findAll', (req, res) => {
@@ -65,10 +66,10 @@ router.post('/api/loginUser', (req, res) => {
   findOne(req.body.username).then((data) => {
     bcrypt.compare(req.body.password, data.password, function (err, result) {
       if (err) throw err.message;
-      else if (result) {
+      if (result) {
         res.json({ message: 'correct password' });
       } else {
-        res.json({ message: 'wrong password' });
+        res.json({ message: 'wrong password or no user' });
       }
     });
   });
