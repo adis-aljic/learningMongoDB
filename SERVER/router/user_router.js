@@ -30,8 +30,11 @@ router.post('/api/findUser', (req, res) => {
   // console.log(req.body);
   findOne(req.body.username).then((data) => {
     console.log(data);
-    console.log('data');
-    res.send(data);
+    if (data) {
+      return res.send(data);
+    } else {
+      return res.send({ message: 'No user' });
+    }
   });
 });
 

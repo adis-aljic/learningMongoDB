@@ -1,8 +1,11 @@
 const DisplayUser = (props) => {
   return (
     <>
-      <div>first name : {props.user.first_name}</div>
-      <div>{props.user.username}</div>
+      <h1>Results</h1>
+      <div>First name : {props.user.first_name}</div>
+      <div>Last name : {props.user.last_name}</div>
+      <div>Username : {props.user.username}</div>
+      <div>Email : {props.user.email}</div>
     </>
   );
 };
