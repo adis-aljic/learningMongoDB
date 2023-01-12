@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 
-const FindUserForm = (props) => {
+const LoginUser = (props) => {
   const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const findUserSubmitHandler = (e) => {
+  const loginUserSubmitHandler = (e) => {
     e.preventDefault();
 
     const savedUsername = username;
     console.log(savedUsername);
 
-    fetch('http://localhost:3500/api/findUser', {
+    const savedPassword = password;
+    console.log(savedPassword);
+
+    fetch('http://localhost:3500/api/loginUser', {
       method: 'POST',
       mode: 'cors',
       body: JSON.stringify({
         username: `${savedUsername}`,
+        password: `${savedPassword}`,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -21,27 +26,36 @@ const FindUserForm = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        props.onFoundUser(data);
+        props.onLoggedUser(data);
+        console.log(data);
       });
     setUsername('');
+    setPassword('');
   };
 
   const usernameInputHanlder = (e) => {
     setUsername(e.target.value);
   };
+  const passwordInputHanlder = (e) => {
+    setPassword(e.target.value);
+  };
 
   return (
     <>
-      <form onSubmit={findUserSubmitHandler}>
+      <form onSubmit={loginUserSubmitHandler}>
         <input
           type="text"
           onChange={usernameInputHanlder}
           value={username}></input>
+        <input
+          type="text"
+          onChange={passwordInputHanlder}
+          value={password}></input>
 
-        <button type="submit">Find User</button>
+        <button type="submit">Login</button>
       </form>
     </>
   );
 };
 
-export default FindUserForm;
+export default LoginUser;

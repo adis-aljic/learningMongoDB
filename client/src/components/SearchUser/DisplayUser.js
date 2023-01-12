@@ -1,7 +1,9 @@
 const DisplayUser = (props) => {
   return (
     <>
-      <h1>Results</h1>
+      <div>
+        <img src="" alt="profile image"></img>
+      </div>
       <div>First name : {props.user.first_name}</div>
       <div>Last name : {props.user.last_name}</div>
       <div>Username : {props.user.username}</div>
