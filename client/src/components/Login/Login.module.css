@@ -1,0 +1,45 @@
+.input {
+    margin: 2rem auto;
+    padding: 1rem;
+    width: 30%;
+  
+}
+
+.input label{
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+}
+
+.input input {
+    font-family: monospace;
+    display: block;
+    width: 95%;
+    border: 1px solid rgb(161, 160, 160);
+    padding: 0.2rem;
+    margin-bottom: 0.9rem;
+    
+}
+
+.buttonContainer {
+    display: flex;
+    padding: 0.6rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginCard {
+    margin-top: 15rem;
+}
+
+.registerButton{
+    margin-top : 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.registerButton p {
+    font-size: 1em;
+    color: blueviolet;
+}

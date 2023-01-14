@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
 
-const LoginUser = (props) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+import Card from '../UI/Card';
+import Button from '../UI/Button';
+import styles from './Login.module.css';
 
-  const loginUserSubmitHandler = (e) => {
+const LoginUser = (props) => {
+  const [enteredUsername, setEnteredUsername] = useState('');
+  const [enteredPassword, setEnteredPassword] = useState('');
+
+  const loginUserHandler = (e) => {
     e.preventDefault();
 
-    const savedUsername = username;
-    console.log(savedUsername);
-
-    const savedPassword = password;
-    console.log(savedPassword);
+    if (
+      enteredUsername.trim().length === 0 ||
+      enteredPassword.trim().length === 0
+    ) {
+      return;
+    }
 
     fetch('http://localhost:3500/api/loginUser', {
       method: 'POST',
       mode: 'cors',
       body: JSON.stringify({
-        username: `${savedUsername}`,
-        password: `${savedPassword}`,
+        username: `${enteredUsername}`,
+        password: `${enteredPassword}`,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -26,36 +31,48 @@ const LoginUser = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        props.onLoggedUser(data);
-        console.log(data);
+        if (data.status) {
+          props.onLoggedUser(data);
+        }
       });
-    setUsername('');
-    setPassword('');
+    setEnteredUsername('');
+    setEnteredPassword('');
   };
 
-  const usernameInputHanlder = (e) => {
-    setUsername(e.target.value);
+  const usernameInputHandler = (e) => {
+    setEnteredUsername(e.target.value);
   };
-  const passwordInputHanlder = (e) => {
-    setPassword(e.target.value);
+  const passwordInputHandler = (e) => {
+    setEnteredPassword(e.target.value);
   };
 
   return (
     <>
-      <form onSubmit={loginUserSubmitHandler}>
-        <input
-          type="text"
-          onChange={usernameInputHanlder}
-          value={username}></input>
-        <input
-          type="text"
-          onChange={passwordInputHanlder}
-          value={password}></input>
-
-        <button type="submit">Login</button>
-      </form>
+      <Card className={[styles.input, styles.loginCard].join(' ')}>
+        <form onSubmit={loginUserHandler}>
+          <label id="username">Username</label>
+          <input
+            type="text"
+            value={enteredUsername}
+            htmlFor="username"
+            onChange={usernameInputHandler}></input>
+          <label id="password">Password</label>
+          <input
+            type="text"
+            htmlFor="password"
+            value={enteredPassword}
+            onChange={passwordInputHandler}></input>
+          <Card className={styles.buttonContainer}>
+            <Button type="submit">Login</Button>
+          </Card>
+        </form>
+        <Card
+          className={[styles.buttonContainer, styles.registerButton].join(' ')}>
+          <p>Still don't have acount ?</p>
+          <Button type="submit">Register</Button>
+        </Card>
+      </Card>
     </>
   );
 };
-
 export default LoginUser;

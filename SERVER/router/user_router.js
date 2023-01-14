@@ -67,13 +67,16 @@ router.post('/api/updateUser', (req, res) => {
 module.exports = router;
 
 router.post('/api/loginUser', (req, res) => {
+  console.log(req.body);
   findOne(req.body.username).then((data) => {
+    if (!data) {
+      return res.json({ message: 'Wrong username or password', status: false });
+    }
     bcrypt.compare(req.body.password, data.password, function (err, result) {
-      if (err) throw err.message;
+      if (err)
+        return res.json({ message: 'Error plese try again', status: false });
       if (result) {
-        res.json({ message: 'correct password' });
-      } else {
-        res.json({ message: 'wrong password or no user' });
+        return res.json({ message: 'Suscesfull', status: true });
       }
     });
   });

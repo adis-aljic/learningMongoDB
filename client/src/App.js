@@ -1,11 +1,12 @@
-import FindUserForm from './components/SearchUser/SearchUser';
-import FindAllUser from './components/SearchUser/findAllUsers';
-import DisplayUser from './components/SearchUser/DisplayUser';
-import Form from './components/UI/Form.js';
-import './App.css';
-import Results from './components/UI/Results';
-import { useState } from 'react';
+import React, { useState } from 'react';
+
 import LoginUser from './components/Login/Login';
+import Header from './components/MainElements/Header';
+import Footer from './components/MainElements/Footer';
+import FindUser from './components/User/FindUser';
+import DisplayUser from './components/User/DisplayUser';
+import FindAllUsers from './components/User/FindAllUsers';
+
 function App() {
   const [user, setUser] = useState();
   const onFoundUserHandler = (foundUser) => {
@@ -13,41 +14,22 @@ function App() {
   };
   console.log(user);
 
-  let resultFindUser = '';
-  if (user) {
-    resultFindUser = user.message && <p>no user</p>;
-  }
-
-  if (user && !user.message) {
-    resultFindUser = <DisplayUser user={user}></DisplayUser>;
-  }
-
   return (
     <>
+      <Header />
       {user ? (
-        <Form>
-          <h1>Find user</h1>
-          <FindUserForm onFoundUser={onFoundUserHandler} />
-          <FindAllUser onFoundUser={onFoundUserHandler} />
-        </Form>
+        <>
+          <FindUser onFoundUser={onFoundUserHandler} />
+          {/* <FindAllUsers onFoundUser={onFoundUserHandler} /> */}
+          <DisplayUser user={user} />
+        </>
       ) : (
-        <Form>
+        <>
           <LoginUser onLoggedUser={onFoundUserHandler}></LoginUser>
-        </Form>
+        </>
       )}
-      {user && user.length > 1 ? (
-        user.map(
-          (singleUser) =>
-            (resultFindUser = (
-              <Results>
-                <DisplayUser user={singleUser}></DisplayUser>
-              </Results>
-            ))
-        )
-      ) : (
-        <Results>{resultFindUser}</Results>
-      )}
-      )
+
+      <Footer />
     </>
   );
 }
