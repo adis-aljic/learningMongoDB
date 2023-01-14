@@ -3,21 +3,41 @@ import React, { useState } from 'react';
 import Card from '../UI/Card';
 import Button from '../UI/Button';
 import styles from './Login.module.css';
+import ErrorModal from '../UI/ErrorModal';
+import validatePassword from './passwordValidation';
 
 const LoginUser = (props) => {
   const [enteredUsername, setEnteredUsername] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
 
+  const [error, setError] = useState();
+
   const loginUserHandler = (e) => {
     e.preventDefault();
 
-    if (
-      enteredUsername.trim().length === 0 ||
-      enteredPassword.trim().length === 0
-    ) {
+    if (enteredUsername.trim().length === 0) {
+      setError({
+        title: 'Invalid input',
+        message: 'Please input username',
+      });
+      return;
+    }
+    if (enteredPassword.trim().length === 0) {
+      setError({
+        title: 'Invalid input',
+        message: 'Please input password',
+      });
       return;
     }
 
+    if (!validatePassword(enteredPassword)) {
+      setError({
+        title: 'Invalid input',
+        message:
+          'Please input password following parameters : min 8 characters and with min one capital letter, one number and one special character ',
+      });
+      return;
+    }
     fetch('http://localhost:3500/api/loginUser', {
       method: 'POST',
       mode: 'cors',
@@ -33,6 +53,11 @@ const LoginUser = (props) => {
       .then((data) => {
         if (data.status) {
           props.onLoggedUser(data);
+        } else {
+          setError({
+            title: 'Failed login',
+            message: 'User not found. Please check username and password',
+          });
         }
       });
     setEnteredUsername('');
@@ -46,8 +71,19 @@ const LoginUser = (props) => {
     setEnteredPassword(e.target.value);
   };
 
+  const errorHandler = () => {
+    setError(null);
+  };
+
   return (
     <>
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={errorHandler}
+        />
+      )}
       <Card className={[styles.input, styles.loginCard].join(' ')}>
         <form onSubmit={loginUserHandler}>
           <label id="username">Username</label>

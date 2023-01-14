@@ -9,7 +9,7 @@ const DisplayUser = (props) => {
           <p>{props.user.message}</p>
         ) : (
           <li className={styles.li}>
-            <img src="../../../images/profile_img_sample.png" />
+            <img src="./profile_img_sample.jpg" alt="img" />
             <p>First name : {props.user.first_name}</p>
             <p>Last name : {props.user.last_name}</p>
             <p>Username : {props.user.username}</p>

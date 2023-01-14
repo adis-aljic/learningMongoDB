@@ -5,6 +5,7 @@ background-color: aqua;
 padding: 2rem;
 
 margin: auto;
+margin-top: 0.5rem;
 }
 
 img{
@@ -17,4 +18,7 @@ img{
     flex-direction: column;    
     justify-content: center;
     align-items: center;
+    padding: 1rem;
+    width: 15rem;
+    height: auto;
 }

@@ -20,8 +20,14 @@ function App() {
       {user ? (
         <>
           <FindUser onFoundUser={onFoundUserHandler} />
-          {/* <FindAllUsers onFoundUser={onFoundUserHandler} /> */}
-          <DisplayUser user={user} />
+          <FindAllUsers onFoundUser={onFoundUserHandler} />
+          {user && user.length > 1 ? (
+            user.map((singleUser) => {
+              return <DisplayUser user={singleUser} />;
+            })
+          ) : (
+            <DisplayUser user={user} />
+          )}
         </>
       ) : (
         <>
