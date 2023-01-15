@@ -43,3 +43,11 @@
     font-size: 1em;
     color: blueviolet;
 }
+
+.findForms{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+

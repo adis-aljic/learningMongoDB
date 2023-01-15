@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 import Card from '../UI/Card';
 import Button from '../UI/Button';
@@ -7,22 +7,23 @@ import ErrorModal from '../UI/ErrorModal';
 import validatePassword from './passwordValidation';
 
 const LoginUser = (props) => {
-  const [enteredUsername, setEnteredUsername] = useState('');
-  const [enteredPassword, setEnteredPassword] = useState('');
+  const inputUsername = useRef();
+  const inputPassword = useRef();
 
   const [error, setError] = useState();
 
   const loginUserHandler = (e) => {
     e.preventDefault();
-
-    if (enteredUsername.trim().length === 0) {
+    const username = inputUsername.current.value;
+    const password = inputPassword.current.value;
+    if (username.trim().length === 0) {
       setError({
         title: 'Invalid input',
         message: 'Please input username',
       });
       return;
     }
-    if (enteredPassword.trim().length === 0) {
+    if (password.trim().length === 0) {
       setError({
         title: 'Invalid input',
         message: 'Please input password',
@@ -30,7 +31,7 @@ const LoginUser = (props) => {
       return;
     }
 
-    if (!validatePassword(enteredPassword)) {
+    if (!validatePassword(password)) {
       setError({
         title: 'Invalid input',
         message:
@@ -42,8 +43,8 @@ const LoginUser = (props) => {
       method: 'POST',
       mode: 'cors',
       body: JSON.stringify({
-        username: `${enteredUsername}`,
-        password: `${enteredPassword}`,
+        username: `${username}`,
+        password: `${password}`,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -53,6 +54,8 @@ const LoginUser = (props) => {
       .then((data) => {
         if (data.status) {
           props.onLoggedUser(data);
+          inputUsername.current.value = '';
+          inputPassword.current.value = '';
         } else {
           setError({
             title: 'Failed login',
@@ -60,15 +63,6 @@ const LoginUser = (props) => {
           });
         }
       });
-    setEnteredUsername('');
-    setEnteredPassword('');
-  };
-
-  const usernameInputHandler = (e) => {
-    setEnteredUsername(e.target.value);
-  };
-  const passwordInputHandler = (e) => {
-    setEnteredPassword(e.target.value);
   };
 
   const errorHandler = () => {
@@ -87,17 +81,9 @@ const LoginUser = (props) => {
       <Card className={[styles.input, styles.loginCard].join(' ')}>
         <form onSubmit={loginUserHandler}>
           <label id="username">Username</label>
-          <input
-            type="text"
-            value={enteredUsername}
-            htmlFor="username"
-            onChange={usernameInputHandler}></input>
+          <input type="text" htmlFor="username" ref={inputUsername}></input>
           <label id="password">Password</label>
-          <input
-            type="text"
-            htmlFor="password"
-            value={enteredPassword}
-            onChange={passwordInputHandler}></input>
+          <input type="text" htmlFor="password" ref={inputPassword}></input>
           <Card className={styles.buttonContainer}>
             <Button type="submit">Login</Button>
           </Card>

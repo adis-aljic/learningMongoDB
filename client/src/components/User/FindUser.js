@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import Card from '../UI/Card';
 import Button from '../UI/Button';
 import styles from '../Login/Login.module.css';
 
 const FindUser = (props) => {
-  const [enteredUsername, setEnteredUsername] = useState('');
+  const inputUsername = useRef();
 
   const findUserHandler = (e) => {
     e.preventDefault();
+    const username = inputUsername.current.value;
 
     fetch('http://localhost:3500/api/findUser', {
       method: 'POST',
       mode: 'cors',
       body: JSON.stringify({
-        username: `${enteredUsername}`,
+        username: `${username}`,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -22,22 +23,15 @@ const FindUser = (props) => {
       .then((res) => res.json())
       .then((data) => {
         props.onFoundUser(data);
+        inputUsername.current.value = '';
       });
-    setEnteredUsername('');
-  };
-  const usernameInputHandler = (e) => {
-    setEnteredUsername(e.target.value);
   };
 
   return (
     <Card className={[styles.input, styles.loginCard].join(' ')}>
       <form onSubmit={findUserHandler}>
         <label id="username">Username</label>
-        <input
-          type="text"
-          value={enteredUsername}
-          htmlFor="username"
-          onChange={usernameInputHandler}></input>
+        <input type="text" ref={inputUsername} htmlFor="username"></input>
 
         <Card className={styles.buttonContainer}>
           <Button type="submit">Find User</Button>
