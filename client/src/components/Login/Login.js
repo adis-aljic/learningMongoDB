@@ -3,42 +3,38 @@ import React, { useState, useRef } from 'react';
 import Card from '../UI/Card';
 import Button from '../UI/Button';
 import styles from './Login.module.css';
-import ErrorModal from '../UI/ErrorModal';
+import Modal from '../UI/Modal';
 import validatePassword from './passwordValidation';
 
 const LoginUser = (props) => {
   const inputUsername = useRef();
   const inputPassword = useRef();
 
+  const [formIsValid, setFormIsValid] = useState(false);
   const [error, setError] = useState();
 
   const loginUserHandler = (e) => {
     e.preventDefault();
     const username = inputUsername.current.value;
     const password = inputPassword.current.value;
-    if (username.trim().length === 0) {
-      setError({
-        title: 'Invalid input',
-        message: 'Please input username',
-      });
-      return;
-    }
-    if (password.trim().length === 0) {
-      setError({
-        title: 'Invalid input',
-        message: 'Please input password',
-      });
-      return;
-    }
 
     if (!validatePassword(password)) {
       setError({
         title: 'Invalid input',
-        message:
-          'Please input password following parameters : min 8 characters and with min one capital letter, one number and one special character ',
+        message: ` 
+            Please input password following parameters : min 8 characters and with min one capital letter, one number and one special character ,
+      `,
       });
       return;
     }
+    if (username < 4) {
+      setError({
+        title: 'Invalid input',
+        message: 'Username must contain minimum 4 characters',
+      });
+      setFormIsValid(false);
+    }
+
     fetch('http://localhost:3500/api/loginUser', {
       method: 'POST',
       mode: 'cors',
@@ -52,8 +48,8 @@ const LoginUser = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.status) {
-          props.onLoggedUser(data);
+        if (!data.message) {
+          props.onLogin(data);
           inputUsername.current.value = '';
           inputPassword.current.value = '';
         } else {
@@ -64,6 +60,16 @@ const LoginUser = (props) => {
         }
       });
   };
+  const passwordHanlder = (e) => {
+    e.target.value.length > 0 && e.target.value.length < 8
+      ? setFormIsValid(false)
+      : setFormIsValid(true);
+  };
+  const usernameHandler = (e) => {
+    e.target.value.length > 0 && e.target.value.length < 4
+      ? setFormIsValid(false)
+      : setFormIsValid(true);
+  };
 
   const errorHandler = () => {
     setError(null);
@@ -72,7 +78,7 @@ const LoginUser = (props) => {
   return (
     <>
       {error && (
-        <ErrorModal
+        <Modal
           title={error.title}
           message={error.message}
           onConfirm={errorHandler}
@@ -81,11 +87,23 @@ const LoginUser = (props) => {
       <Card className={[styles.input, styles.loginCard].join(' ')}>
         <form onSubmit={loginUserHandler}>
           <label id="username">Username</label>
-          <input type="text" htmlFor="username" ref={inputUsername}></input>
+          <input
+            type="text"
+            htmlFor="username"
+            ref={inputUsername}
+            onChange={usernameHandler}
+            className={!formIsValid ? ` ${styles.invalidInput}` : ''}></input>
           <label id="password">Password</label>
-          <input type="text" htmlFor="password" ref={inputPassword}></input>
+          <input
+            type="text"
+            htmlFor="password"
+            ref={inputPassword}
+            onChange={passwordHanlder}
+            className={!formIsValid ? ` ${styles.invalidInput}` : ''}></input>
           <Card className={styles.buttonContainer}>
-            <Button type="submit">Login</Button>
+            <Button type="submit" disabled={!formIsValid}>
+              Login
+            </Button>
           </Card>
         </form>
         <Card

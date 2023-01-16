@@ -10,6 +10,7 @@ const {
   updateUser,
   validatePassword,
 } = require('../controlers/controler_user');
+const { resourceLimits } = require('worker_threads');
 
 // router.get('/', (req, res) => {
 //   res.sendFile(path.join(process.cwd(), '/CLIENT/view/index.html'));
@@ -67,7 +68,7 @@ router.post('/api/updateUser', (req, res) => {
 module.exports = router;
 
 router.post('/api/loginUser', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   findOne(req.body.username).then((data) => {
     if (!data) {
       return res.json({ message: 'Wrong username or password', status: false });
@@ -76,7 +77,7 @@ router.post('/api/loginUser', (req, res) => {
       if (err)
         return res.json({ message: 'Error plese try again', status: false });
       if (result) {
-        return res.json({ message: 'Suscesfull', status: true });
+        return res.json(data);
       }
     });
   });

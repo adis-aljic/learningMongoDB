@@ -4,7 +4,7 @@ import ReactDom from 'react-dom';
 import Card from './Card';
 import Button from './Button';
 
-import styles from './ErrorModal.module.css';
+import styles from './Modal.module.css';
 
 const ModalBackdrop = (props) => {
   return <div className={styles.backdrop} onClick={props.onConfirm}></div>;
@@ -26,7 +26,7 @@ const ModalOverlay = (props) => {
   );
 };
 
-const ErrorModal = (props) => {
+const Modal = (props) => {
   return (
     <>
       {ReactDom.createPortal(
@@ -46,4 +46,4 @@ const ErrorModal = (props) => {
   );
 };
 
-export default ErrorModal;
+export default Modal;

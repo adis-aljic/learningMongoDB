@@ -13,3 +13,11 @@
     
 }
 
+
+.button:disabled{
+  background-color: aqua;
+}
+
+.button:disabled:hover{
+  background-color: aqua;
+}

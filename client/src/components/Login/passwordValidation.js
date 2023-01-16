@@ -29,11 +29,8 @@ const validatePassword = (password) => {
     numbers.length > 0 &&
     special_characters.length > 0
   ) {
-    // console.log(capital_letter);
-    console.log('numbers');
     return true;
   } else {
-    console.log(capital_letter);
     return false;
   }
 };
