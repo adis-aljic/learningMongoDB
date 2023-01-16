@@ -5,7 +5,7 @@ const DisplayUser = (props) => {
   return (
     <Card className={styles.displayUser}>
       <ul>
-        {props.user && props.user.message ? (
+        {props.user.message ? (
           <p>{props.user.message}</p>
         ) : (
           <li className={styles.li}>

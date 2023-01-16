@@ -10,7 +10,6 @@ const {
   updateUser,
   validatePassword,
 } = require('../controlers/controler_user');
-const { resourceLimits } = require('worker_threads');
 
 // router.get('/', (req, res) => {
 //   res.sendFile(path.join(process.cwd(), '/CLIENT/view/index.html'));
@@ -63,7 +62,14 @@ router.post('/api/deleteUser', (req, res) => {
 
 router.post('/api/updateUser', (req, res) => {
   // console.log(req.body);
-  updateUser(res, req.body);
+  if (validatePassword(req.body.password)) {
+    updateUser(res, req.body);
+  } else {
+    res.json({
+      message:
+        'Password is not safe. Please use at least 8 characters, at least one small, one capital letter, one special character and one number',
+    });
+  }
 });
 module.exports = router;
 

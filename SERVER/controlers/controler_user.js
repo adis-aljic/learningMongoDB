@@ -95,14 +95,18 @@ const updateUser = async (res, data) => {
   const last_name = data.last_name;
   const email = data.email;
   const password = data.password;
+
   const update_user = {};
   if (!username) {
-    return res.send({ message: 'You must enter username' });
+    return res.json({ message: 'You must enter username' });
   } else {
     if (first_name) update_user.first_name = first_name;
     if (last_name) update_user.last_name = last_name;
     if (email) update_user.email = email;
-    if (password) update_user.password = password;
+    if (password) {
+      const pwd = await bcrypt.hash(password, 10);
+      update_user.password = pwd;
+    }
     const duplicatedUser = await user.findOne({ username: username });
     if (duplicatedUser) {
       const updated_user = await user.findOneAndUpdate(

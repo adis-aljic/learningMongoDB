@@ -7,22 +7,25 @@ import FindUser from './components/User/FindUser';
 import DisplayUser from './components/User/DisplayUser';
 import FindAllUsers from './components/User/FindAllUsers';
 import AuthContext from './components/Store/Auth-context';
+import RegisterUser from './components/User/RegisterUser';
+import Display from './components/User/DisplayMsg';
 
 function App() {
-  const [user, setUser] = useState();
+  let [user, setUser] = useState();
   const [isLogged, setIsLogged] = useState(false);
+  const [isRegistered, setIsRegistred] = useState();
 
   useEffect(() => {
     const storedAuth = localStorage.getItem('isLogged');
     if (storedAuth) {
       setIsLogged(true);
-      setUser(storedAuth);
+      setUser(JSON.parse(storedAuth));
     }
   }, []);
 
   const isLoggedHandler = (foundUser) => {
     setUser(foundUser);
-    localStorage.setItem('isLogged', `${foundUser}`);
+    localStorage.setItem('isLogged', `${JSON.stringify(foundUser)}`);
     setIsLogged(true);
   };
 
@@ -30,25 +33,36 @@ function App() {
     localStorage.removeItem('isLogged');
     setIsLogged(false);
   };
-  console.log(user);
+
+  const isRegisteredUserHandler = (registerdUser) => {
+    setIsRegistred(registerdUser);
+  };
+
+  console.log(isRegistered);
   return (
     <AuthContext.Provider
       value={{
         isLogged: isLogged,
         onLogout: isLogoutHandler,
       }}>
-      <Header />
       <main>
-        {!isLogged && <LoginUser onLogin={isLoggedHandler} />}
-        {isLogged && (
-          <>
-            <FindUser onFoundUser={isLoggedHandler} />
-            <DisplayUser user={user} />
-          </>
-        )}
-      </main>
+        <Header />
+        <section>
+          {!isLogged && <LoginUser onLogin={isLoggedHandler} />}
+          {/* {isLogged ? <DisplayUser user={user} /> : ''} */}
+          {isLogged ? (
+            <>
+              <RegisterUser
+                isRegistered={isRegisteredUserHandler}></RegisterUser>
+              {isRegistered ? <Display isRegistered={isRegistered} /> : ''}
+            </>
+          ) : (
+            ''
+          )}
+        </section>
 
-      <Footer />
+        <Footer />
+      </main>
     </AuthContext.Provider>
   );
 }
