@@ -16,6 +16,7 @@ const FindAllUsers = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        data.key = data._id;
         props.onFoundUser(data);
       });
   };

@@ -1,8 +1,8 @@
-main{
-    background-color: rgb(80, 63, 63);
+
+body{
+    
     width: 100vw;
     height: 100vh;
-  
 }
 
 *{
@@ -11,11 +11,13 @@ main{
 }
 
 
-section{
+main{
+    background-color: rgb(80, 63, 63);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* height: 80vh; */
-    margin-top: 20vh;
+    min-height: 100vh;
+    height: 100%;
+    margin-top: 15vh;
 }

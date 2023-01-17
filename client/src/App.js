@@ -12,6 +12,8 @@ import Display from './components/User/DisplayMsg';
 import UpdateUser from './components/User/UpdateUser';
 import Delete from './components/User/DeleteUser';
 
+import styles from './components/UI/Card.module.css';
+
 function App() {
   let [user, setUser] = useState();
   const [isLogged, setIsLogged] = useState(false);
@@ -46,35 +48,34 @@ function App() {
         isLogged: isLogged,
         onLogout: isLogoutHandler,
       }}>
+      <Header />
       <main>
-        <Header />
-        <section>
-          {!isLogged && <LoginUser onLogin={isLoggedHandler} />}
-          {/* {isLogged ? <DisplayUser user={user} /> : ''} */}
-          {isLogged ? (
-            <>
-              {/* <UpdateUser isUpdated={isRegisteredUserHandler}></UpdateUser>
+        {!isLogged && <LoginUser onLogin={isLoggedHandler} />}
+        {/* {isLogged ? <DisplayUser user={user} /> : ''} */}
+        {isLogged ? (
+          <>
+            {/* <UpdateUser isUpdated={isRegisteredUserHandler}></UpdateUser>
               {isRegistered ? <Display isRegistered={isRegistered} /> : ''} */}
-              {/* <RegisterUser
+            {/* <RegisterUser
                 isRegistered={isRegisteredUserHandler}></RegisterUser>
               {isRegistered ? <Display isRegistered={isRegistered} /> : ''} */}
-              {/* <Delete onDelete={isRegisteredUserHandler} />
+            {/* <Delete onDelete={isRegisteredUserHandler} />
               {isRegistered ? <Display isRegistered={isRegistered} /> : ''} */}
-              <FindUser onFoundUser={isLoggedHandler} />
-              <DisplayUser user={user}></DisplayUser>
-              {/* <FindAllUsers onFoundUser={isLoggedHandler} />;
-              {user.length > 1 &&
-                user.map((user) => {
-                  <DisplayUser user={user} />;
-                })} */}
-            </>
-          ) : (
-            ''
-          )}
-        </section>
-
-        <Footer />
+            {/* <FindUser onFoundUser={isLoggedHandler} />
+              <DisplayUser user={user}></DisplayUser> */}
+            <FindAllUsers onFoundUser={isLoggedHandler} />;
+            {user.length > 1 &&
+              user.map((user) => {
+                return (
+                  <DisplayUser className={styles.findAllCards} user={user} />
+                );
+              })}
+          </>
+        ) : (
+          ''
+        )}
       </main>
+      <Footer />
     </AuthContext.Provider>
   );
 }

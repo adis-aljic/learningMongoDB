@@ -1,11 +1,12 @@
 .footer{
-height: 5vh;
 background-color: rgb(28, 28, 29);
 border-bottom: 1px solid black;
 width: 100vw;
-position: fixed;
+/* position: fixed; */
 bottom:0px;
 color: antiquewhite;
+height: fit-content;
+padding: 1rem;
 }
 
 .footer p {

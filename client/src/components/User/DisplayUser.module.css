@@ -3,7 +3,6 @@ width: max-content;
 height: max-content;
 background-color: aqua;
 padding: 2rem;
-margin: auto;
 }
 
 
@@ -20,5 +19,5 @@ img{
     align-items: center;
     padding: 1rem;
     width: 15rem;
-    height: auto;
+    /* height: auto; */
 }
