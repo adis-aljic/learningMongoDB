@@ -50,6 +50,10 @@
 }
 
 .invalidInput{
-    background-color: rgb(204, 117, 117);
+    background-color: rgb(209, 145, 145);
+}
+
+.validInput{
+    background-color: rgb(224, 229, 235);
 }
 

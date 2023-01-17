@@ -10,7 +10,8 @@ const LoginUser = (props) => {
   const inputUsername = useRef();
   const inputPassword = useRef();
 
-  const [formIsValid, setFormIsValid] = useState(false);
+  const [usernameIsValid, setUsernameIsValid] = useState(false);
+  const [passwordIsValid, setPasswordIsValid] = useState(false);
   const [error, setError] = useState();
 
   const loginUserHandler = (e) => {
@@ -19,6 +20,7 @@ const LoginUser = (props) => {
     const password = inputPassword.current.value;
 
     if (!validatePassword(password)) {
+      setPasswordIsValid(true);
       setError({
         title: 'Invalid input',
         message: ` 
@@ -27,12 +29,12 @@ const LoginUser = (props) => {
       });
       return;
     }
-    if (username < 4) {
+    if (username.length < 4) {
       setError({
         title: 'Invalid input',
         message: 'Username must contain minimum 4 characters',
       });
-      setFormIsValid(false);
+      setUsernameIsValid(true);
     }
 
     fetch('http://localhost:3500/api/loginUser', {
@@ -61,14 +63,14 @@ const LoginUser = (props) => {
       });
   };
   const passwordHanlder = (e) => {
-    e.target.value.length > 0 && e.target.value.length < 8
-      ? setFormIsValid(false)
-      : setFormIsValid(true);
+    e.target.value.length < 8
+      ? setPasswordIsValid(false)
+      : setPasswordIsValid(true);
   };
   const usernameHandler = (e) => {
-    e.target.value.length > 0 && e.target.value.length < 4
-      ? setFormIsValid(false)
-      : setFormIsValid(true);
+    e.target.value.length < 4
+      ? setUsernameIsValid(false)
+      : setUsernameIsValid(true);
   };
 
   const errorHandler = () => {
@@ -92,16 +94,26 @@ const LoginUser = (props) => {
             htmlFor="username"
             ref={inputUsername}
             onChange={usernameHandler}
-            className={!formIsValid ? ` ${styles.invalidInput}` : ''}></input>
+            className={
+              !usernameIsValid
+                ? ` ${styles.invalidInput}`
+                : `${styles.validInput}`
+            }></input>
           <label id="password">Password</label>
           <input
             type="text"
             htmlFor="password"
             ref={inputPassword}
             onChange={passwordHanlder}
-            className={!formIsValid ? ` ${styles.invalidInput}` : ''}></input>
+            className={
+              !passwordIsValid
+                ? ` ${styles.invalidInput}`
+                : `${styles.validInput}`
+            }></input>
           <Card className={styles.buttonContainer}>
-            <Button type="submit" disabled={!formIsValid}>
+            <Button
+              type="submit"
+              disabled={!passwordIsValid || !usernameIsValid}>
               Login
             </Button>
           </Card>
