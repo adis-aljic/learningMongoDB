@@ -38,6 +38,10 @@ const RegisterUser = (props) => {
         props.isRegistered(data);
         console.log(data);
         inputUsername.current.value = '';
+        inputFirstName.current.value = '';
+        inputLastName.current.value = '';
+        inputEmail.current.value = '';
+        inputPassword.current.value = '';
       });
   };
 

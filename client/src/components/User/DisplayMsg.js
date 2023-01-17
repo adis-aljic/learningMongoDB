@@ -12,8 +12,8 @@ const Display = (props) => {
             <p>{props.isRegistered.message}</p>
           ) : (
             <li className={styles.li}>
-              <p>Congratulation</p>
               <br></br>
+              <p>{props.isRegistered.message}</p>
               <p>First name : {props.isRegistered.first_name}</p>
               <p>Last name : {props.isRegistered.last_name}</p>
               <p>Username : {props.isRegistered.username}</p>

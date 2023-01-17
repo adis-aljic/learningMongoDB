@@ -79,13 +79,15 @@ const findOne = async (data) => {
 };
 
 const deleteOne = async (data, res) => {
-  const findDeletedUser = await findOne({ username: `${data}` });
-  console.log(findDeletedUser);
+  console.log(data);
+  const findDeletedUser = await user.findOne({ username: `${data}` });
   if (findDeletedUser) {
     await user.deleteOne({ username: `${data}` });
-    res.send({ message: `User is deleted` });
+    findDeletedUser.message = `User is deleted`;
+    console.log(findDeletedUser.message);
+    res.json(findDeletedUser);
   } else {
-    res.send({ message: 'User doesnt exist' });
+    res.json({ message: 'User doesnt exist' });
   }
 };
 

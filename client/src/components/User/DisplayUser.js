@@ -10,6 +10,7 @@ const DisplayUser = (props) => {
         ) : (
           <li className={styles.li}>
             <img src="./profile_img_sample.jpg" alt="img" />
+            {props.user.message ? props.user.message : ''}
             <p>First name : {props.user.first_name}</p>
             <p>Last name : {props.user.last_name}</p>
             <p>Username : {props.user.username}</p>

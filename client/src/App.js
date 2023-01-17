@@ -9,6 +9,8 @@ import FindAllUsers from './components/User/FindAllUsers';
 import AuthContext from './components/Store/Auth-context';
 import RegisterUser from './components/User/RegisterUser';
 import Display from './components/User/DisplayMsg';
+import UpdateUser from './components/User/UpdateUser';
+import Delete from './components/User/DeleteUser';
 
 function App() {
   let [user, setUser] = useState();
@@ -38,7 +40,6 @@ function App() {
     setIsRegistred(registerdUser);
   };
 
-  console.log(isRegistered);
   return (
     <AuthContext.Provider
       value={{
@@ -52,9 +53,20 @@ function App() {
           {/* {isLogged ? <DisplayUser user={user} /> : ''} */}
           {isLogged ? (
             <>
-              <RegisterUser
+              {/* <UpdateUser isUpdated={isRegisteredUserHandler}></UpdateUser>
+              {isRegistered ? <Display isRegistered={isRegistered} /> : ''} */}
+              {/* <RegisterUser
                 isRegistered={isRegisteredUserHandler}></RegisterUser>
-              {isRegistered ? <Display isRegistered={isRegistered} /> : ''}
+              {isRegistered ? <Display isRegistered={isRegistered} /> : ''} */}
+              {/* <Delete onDelete={isRegisteredUserHandler} />
+              {isRegistered ? <Display isRegistered={isRegistered} /> : ''} */}
+              <FindUser onFoundUser={isLoggedHandler} />
+              <DisplayUser user={user}></DisplayUser>
+              {/* <FindAllUsers onFoundUser={isLoggedHandler} />;
+              {user.length > 1 &&
+                user.map((user) => {
+                  <DisplayUser user={user} />;
+                })} */}
             </>
           ) : (
             ''

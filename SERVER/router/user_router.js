@@ -62,7 +62,9 @@ router.post('/api/deleteUser', (req, res) => {
 
 router.post('/api/updateUser', (req, res) => {
   // console.log(req.body);
-  if (validatePassword(req.body.password)) {
+  if (req.body.password && validatePassword(req.body.password)) {
+    updateUser(res, req.body);
+  } else if (!req.body.password && req.body.username) {
     updateUser(res, req.body);
   } else {
     res.json({
