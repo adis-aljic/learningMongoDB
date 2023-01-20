@@ -7,4 +7,12 @@
 
 .findAllCards{
     margin-bottom: 3rem;
+
+}
+.registred{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+
 }

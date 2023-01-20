@@ -33,7 +33,7 @@ router.post('/api/findUser', (req, res) => {
     if (data) {
       return res.send(data);
     } else {
-      return res.send({ message: 'No user' });
+      return res.json({ message: 'No user' });
     }
   });
 });

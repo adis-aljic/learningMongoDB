@@ -49,15 +49,35 @@ const RegisterUser = (props) => {
     <Card className={[styles.input, styles.loginCard].join(' ')}>
       <form onSubmit={registerUserHandler}>
         <label id="first_name">First name</label>
-        <input htmlFor="first_name" type="text" ref={inputFirstName} />
+        <input
+          htmlFor="first_name"
+          type="text"
+          ref={inputFirstName}
+          required={true}
+        />
         <label id="last_name">Last Name</label>
-        <input htmlFor="last_name" type="text" ref={inputLastName} />
+        <input
+          htmlFor="last_name"
+          type="text"
+          ref={inputLastName}
+          required={true}
+        />
         <label id="email">Email</label>
-        <input htmlFor="email" type="text" ref={inputEmail} />
+        <input htmlFor="email" type="text" ref={inputEmail} required={true} />
         <label id="username">Username</label>
-        <input htmlFor="username" type="text" ref={inputUsername} />
+        <input
+          htmlFor="username"
+          type="text"
+          ref={inputUsername}
+          required={true}
+        />
         <label id="password">Password</label>
-        <input htmlFor="password" type="text" ref={inputPassword} />
+        <input
+          htmlFor="password"
+          type="text"
+          ref={inputPassword}
+          required={true}
+        />
         <Card className={styles.buttonContainer}>
           <Button type="submit" title>
             Register User

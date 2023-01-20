@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-
+import React, { useState, useRef, useContext } from 'react';
+import AuthContext from '../Store/Auth-context';
 import Card from '../UI/Card';
 import Button from '../UI/Button';
 import styles from './Login.module.css';
@@ -13,6 +13,7 @@ const LoginUser = (props) => {
   const [usernameIsValid, setUsernameIsValid] = useState(false);
   const [passwordIsValid, setPasswordIsValid] = useState(false);
   const [error, setError] = useState();
+  const isLoggedCtx = useContext(AuthContext);
 
   const loginUserHandler = (e) => {
     e.preventDefault();
@@ -20,14 +21,14 @@ const LoginUser = (props) => {
     const password = inputPassword.current.value;
 
     if (!validatePassword(password)) {
-      setPasswordIsValid(true);
       setError({
         title: 'Invalid input',
         message: ` 
-            Please input password following parameters : min 8 characters and with min one capital letter, one number and one special character ,
-      `,
+        Please input password following parameters : min 8 characters and with min one capital letter, one number and one special character ,
+        `,
       });
-      return;
+    } else {
+      setPasswordIsValid(true);
     }
     if (username.length < 4) {
       setError({
@@ -121,7 +122,7 @@ const LoginUser = (props) => {
         <Card
           className={[styles.buttonContainer, styles.registerButton].join(' ')}>
           <p>Still don't have acount ?</p>
-          <Button type="submit">Register</Button>
+          <Button onClick={isLoggedCtx.isShownRegistred}>Register</Button>
         </Card>
       </Card>
     </>

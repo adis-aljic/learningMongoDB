@@ -6,10 +6,11 @@ const Button = (props) => {
   return (
     <>
       <button
-        className={styles.button}
+        className={`${styles.button} ${props.className}`}
         type={props.type || 'button'}
         disabled={props.disabled}
-        onClick={props.onClick}>
+        onClick={props.onClick}
+        required={props.required}>
         {props.children}
       </button>
     </>

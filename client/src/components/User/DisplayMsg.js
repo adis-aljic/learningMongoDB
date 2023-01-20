@@ -3,14 +3,11 @@ import Card from '../UI/Card';
 import styles from './DisplayUser.module.css';
 
 const Display = (props) => {
-  console.log(props);
   return (
     <>
-      <Card className={styles.displayUser}>
-        <ul>
-          {props.isRegistered.message ? (
-            <p>{props.isRegistered.message}</p>
-          ) : (
+      {props.isRegistered ? (
+        <Card className={styles.displayUser}>
+          <ul>
             <li className={styles.li}>
               <br></br>
               <p>{props.isRegistered.message}</p>
@@ -19,9 +16,11 @@ const Display = (props) => {
               <p>Username : {props.isRegistered.username}</p>
               <p>Email : {props.isRegistered.email}</p>
             </li>
-          )}
-        </ul>
-      </Card>
+          </ul>
+        </Card>
+      ) : (
+        ''
+      )}
     </>
   );
 };
